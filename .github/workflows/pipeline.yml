@@ -25,7 +25,7 @@ jobs:
       - name: Set up variables
         id: vars
         run: |
-          echo "commit-sha=${GITHUB_SHA:0:8}" >> $GITHUB_OUTPUT
+          echo "commit-sha=${GITHUB_SHA}" >> $GITHUB_OUTPUT
       
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -47,9 +47,7 @@ jobs:
           context: .
           file: ./Dockerfile.api
           push: true
-          tags: |
-            ${{ vars.ECR_API_REPO }}:${{ steps.vars.outputs.commit-sha }}
-            ${{ vars.ECR_API_REPO }}:latest
+          tags: ${{ vars.ECR_API_REPO }}:${{ steps.vars.outputs.commit-sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
       
@@ -59,9 +57,7 @@ jobs:
           context: .
           file: ./Dockerfile.dashboard
           push: true
-          tags: |
-            ${{ vars.ECR_DASHBOARD_REPO }}:${{ steps.vars.outputs.commit-sha }}
-            ${{ vars.ECR_DASHBOARD_REPO }}:latest
+          tags: ${{ vars.ECR_DASHBOARD_REPO }}:${{ steps.vars.outputs.commit-sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
       
