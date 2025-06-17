@@ -3,14 +3,6 @@ name: Build and Deploy Health Intelligence App
 on:
   push:
     branches: [ main ]
-    paths:
-      - 'api/**'
-      - 'dashboard/**'
-      - 'nginx/**'
-      - 'database/**'
-      - 'Dockerfile.api'
-      - 'Dockerfile.dashboard'
-      - 'requirements.txt'
   workflow_dispatch: # Allows manual triggering
 
 env:
